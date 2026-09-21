@@ -2,6 +2,823 @@
   "watchlist": [],
   "screenings": [
     {
+      "id": "VG-2026-10482",
+      "verificationId": "VG-2026-10482",
+      "personName": "Rahul Sharma",
+      "documentType": "Passport",
+      "documentNumber": "P8XXXX42",
+      "nationality": "Indian",
+      "riskScore": 18,
+      "riskLevel": "LOW",
+      "recommendation": "PROCEED",
+      "status": "Verified",
+      "timestamp": "2026-09-15T06:05:30.545Z",
+      "reasons": [
+        "Required document information was successfully extracted.",
+        "Document validity and integrity checks passed without warnings.",
+        "No visual tampering or metadata anomalies detected.",
+        "Strong biometric face similarity (96%).",
+        "No matches found against security watchlist databases."
+      ],
+      "recommendedAction": "Proceed with verification.",
+      "ocr": {
+        "fullName": "Rahul Sharma",
+        "documentType": "Passport",
+        "documentNumber": "P8XXXX42",
+        "nationality": "Indian",
+        "dateOfBirth": "14 May 2002",
+        "gender": "Male",
+        "dateOfIssue": "14 May 2022",
+        "dateOfExpiry": "14 May 2032",
+        "placeOfBirth": "New Delhi, IND",
+        "issuingCountry": "IND",
+        "mrz": "P<INDRSHARMA<<RAHUL<<<<<<<<<<<<<<<<<<<<<<<\nP8XXXX42<8IND0205142M3205144<<<<<<<<<<<<<<06"
+      },
+      "checks": [
+        {
+          "id": "ocr",
+          "title": "OCR Extraction",
+          "description": "Required fields successfully extracted with 98% confidence.",
+          "status": "pass",
+          "score": "98%"
+        },
+        {
+          "id": "validation",
+          "title": "Document Validation",
+          "description": "Document number format and date ranges are valid.",
+          "status": "pass",
+          "score": "96%"
+        },
+        {
+          "id": "tampering",
+          "title": "Tampering Analysis",
+          "description": "No photo replacement, font anomalies, or compression edits.",
+          "status": "pass",
+          "score": "94%"
+        },
+        {
+          "id": "face",
+          "title": "Face Verification",
+          "description": "Document photo strongly matches presented identity.",
+          "status": "pass",
+          "score": "96%"
+        },
+        {
+          "id": "watchlist",
+          "title": "Watchlist Check",
+          "description": "Identity clear across all watchlist databases.",
+          "status": "pass",
+          "score": "CLEAR"
+        }
+      ],
+      "tampering": {
+        "tamperingScore": 6,
+        "tamperingRisk": "Low",
+        "indicators": [],
+        "confidence": 0.96
+      },
+      "faceVerification": {
+        "similarity": 96,
+        "status": "Strong Match",
+        "confidence": 0.94
+      },
+      "watchlist": {
+        "matched": false,
+        "matchDetails": null
+      }
+    },
+    {
+      "id": "VG-2026-10481",
+      "verificationId": "VG-2026-10481",
+      "personName": "Daniel Wilson",
+      "documentType": "Visa",
+      "documentNumber": "V-9921048",
+      "nationality": "British",
+      "riskScore": 47,
+      "riskLevel": "MEDIUM",
+      "recommendation": "MANUAL REVIEW",
+      "status": "Review",
+      "timestamp": "2026-09-15T06:01:30.546Z",
+      "reasons": [
+        "Stay duration does not match entry stamp dates.",
+        "Moderate face verification similarity (68%).",
+        "Minor font inconsistency detected in issuing authority field."
+      ],
+      "recommendedAction": "Perform manual officer inspection of original visa stamp.",
+      "ocr": {
+        "fullName": "Daniel Wilson",
+        "documentType": "Visa",
+        "visaNumber": "V-9921048",
+        "passportNumber": "GBR-902188",
+        "nationality": "British",
+        "dateOfBirth": "08 Sep 1988",
+        "dateOfIssue": "10 Jan 2026",
+        "dateOfExpiry": "10 Jul 2026",
+        "entryType": "Multiple",
+        "stayDuration": "90 Days",
+        "issuingAuthority": "London High Commission"
+      },
+      "checks": [
+        {
+          "id": "ocr",
+          "title": "OCR Extraction",
+          "description": "Extracted information with minor font variance.",
+          "status": "pass",
+          "score": "92%"
+        },
+        {
+          "id": "validation",
+          "title": "Document Validation",
+          "description": "Stay duration inconsistency detected.",
+          "status": "warning",
+          "score": "72%"
+        },
+        {
+          "id": "tampering",
+          "title": "Tampering Analysis",
+          "description": "Possible font misalignment in authority region.",
+          "status": "warning",
+          "score": "68%"
+        },
+        {
+          "id": "face",
+          "title": "Face Verification",
+          "description": "Moderate similarity score requires manual check.",
+          "status": "warning",
+          "score": "68%"
+        },
+        {
+          "id": "watchlist",
+          "title": "Watchlist Check",
+          "description": "Identity clear across watchlist.",
+          "status": "pass",
+          "score": "CLEAR"
+        }
+      ],
+      "tampering": {
+        "tamperingScore": 34,
+        "tamperingRisk": "Medium",
+        "indicators": [
+          "Font variance detected in authority text region"
+        ],
+        "confidence": 0.82
+      },
+      "faceVerification": {
+        "similarity": 68,
+        "status": "Manual Review Required",
+        "confidence": 0.81
+      },
+      "watchlist": {
+        "matched": false,
+        "matchDetails": null
+      }
+    },
+    {
+      "id": "VG-2026-10480",
+      "verificationId": "VG-2026-10480",
+      "personName": "Elena Rostova",
+      "documentType": "Passport",
+      "documentNumber": "P89123450",
+      "nationality": "Ukrainian",
+      "riskScore": 74,
+      "riskLevel": "HIGH",
+      "recommendation": "HOLD FOR SECONDARY VERIFICATION",
+      "status": "Flagged",
+      "timestamp": "2026-09-15T05:56:30.546Z",
+      "reasons": [
+        "Significant photo replacement boundary anomalies detected.",
+        "Date of Expiry shows localized compression artifacts and digital manipulation.",
+        "Biometric facial match confidence below acceptable threshold (52%)."
+      ],
+      "recommendedAction": "Hold passenger for secondary immigration screening and forensics examination.",
+      "ocr": {
+        "fullName": "Elena Rostova",
+        "documentType": "Passport",
+        "documentNumber": "P89123450",
+        "nationality": "Ukrainian",
+        "dateOfBirth": "22 Nov 1994",
+        "gender": "Female",
+        "dateOfIssue": "15 Jan 2019",
+        "dateOfExpiry": "15 Jan 2029",
+        "placeOfBirth": "Kyiv, UKR",
+        "issuingCountry": "UKR"
+      },
+      "checks": [
+        {
+          "id": "ocr",
+          "title": "OCR Extraction",
+          "description": "Extracted successfully but checksum anomaly.",
+          "status": "warning",
+          "score": "84%"
+        },
+        {
+          "id": "validation",
+          "title": "Document Validation",
+          "description": "Expiry date format altered.",
+          "status": "warning",
+          "score": "60%"
+        },
+        {
+          "id": "tampering",
+          "title": "Tampering Analysis",
+          "description": "Photo replacement and digital alteration detected.",
+          "status": "fail",
+          "score": "28%"
+        },
+        {
+          "id": "face",
+          "title": "Face Verification",
+          "description": "Significant facial landmark mismatch.",
+          "status": "fail",
+          "score": "52%"
+        },
+        {
+          "id": "watchlist",
+          "title": "Watchlist Check",
+          "description": "Flagged on border checkpoint advisory.",
+          "status": "warning",
+          "score": "ALERT"
+        }
+      ],
+      "tampering": {
+        "tamperingScore": 76,
+        "tamperingRisk": "High",
+        "indicators": [
+          "Photo perimeter contains edge blending and clone stamp artifacts",
+          "Expiry date region shows inconsistent JPEG compression grid",
+          "MRZ checksum mismatch with visual zone expiry"
+        ],
+        "confidence": 0.91
+      },
+      "faceVerification": {
+        "similarity": 52,
+        "status": "Mismatch / Suspect",
+        "confidence": 0.89
+      },
+      "watchlist": {
+        "matched": true,
+        "matchDetails": {
+          "name": "Elena Rostova",
+          "riskLevel": "HIGH",
+          "reason": "Suspicious Document Tampering & Altered Expiry Date"
+        }
+      }
+    },
+    {
+      "id": "VG-2026-10479",
+      "verificationId": "VG-2026-10479",
+      "personName": "Michael Brown",
+      "documentType": "Passport",
+      "documentNumber": "USA-551029",
+      "nationality": "American",
+      "riskScore": 12,
+      "riskLevel": "LOW",
+      "recommendation": "PROCEED",
+      "status": "Verified",
+      "timestamp": "2026-09-15T05:49:30.546Z",
+      "reasons": [
+        "All primary security checks passed.",
+        "No tampering or anomalies found.",
+        "High face similarity (98%)."
+      ],
+      "recommendedAction": "Proceed with verification."
+    },
+    {
+      "id": "VG-2026-10478",
+      "verificationId": "VG-2026-10478",
+      "personName": "Sofia Martinez",
+      "documentType": "National ID",
+      "documentNumber": "ES-849201",
+      "nationality": "Spanish",
+      "riskScore": 22,
+      "riskLevel": "LOW",
+      "recommendation": "PROCEED",
+      "status": "Verified",
+      "timestamp": "2026-09-15T05:43:30.546Z",
+      "reasons": [
+        "Document valid and clean.",
+        "Face similarity verified at 94%."
+      ],
+      "recommendedAction": "Proceed with verification."
+    },
+    {
+      "id": "VG-2026-10477",
+      "verificationId": "VG-2026-10477",
+      "personName": "Tariq Al-Mansoor",
+      "documentType": "Passport",
+      "documentNumber": "M90124881",
+      "nationality": "Syrian",
+      "riskScore": 92,
+      "riskLevel": "CRITICAL",
+      "recommendation": "ESCALATE",
+      "status": "Flagged",
+      "timestamp": "2026-09-15T05:22:30.546Z",
+      "reasons": [
+        "Match identified against Interpol Red Notice #A-2025-9921.",
+        "High tampering score: altered passport number and photo replacement.",
+        "Biometric facial discrepancy detected."
+      ],
+      "recommendedAction": "Immediate detention and escalation to Border Police Commander."
+    },
+    {
+      "id": "VG-2026-60323",
+      "verificationId": "VG-2026-60323",
+      "screeningId": "VG-2026-60323",
+      "personName": "ARJUN MEHTA",
+      "documentType": "Passport",
+      "documentNumber": "Z5487921",
+      "nationality": "IND",
+      "riskScore": 85,
+      "riskLevel": "CRITICAL",
+      "risk": {
+        "score": 85,
+        "level": "CRITICAL",
+        "baseScore": 25,
+        "threatFloor": 85,
+        "threatRulesApplied": [
+          "MULTIPLE_MRZ_CHECKSUM_FAILURES"
+        ]
+      },
+      "recommendation": "HOLD FOR SECONDARY VERIFICATION",
+      "reasons": [
+        "ICAO Doc 9303 Machine Readable Zone (MRZ) successfully identified and extracted.",
+        "ICAO DOC 9303 INTEGRITY BREACH: Multiple MRZ check digits failed cryptographic validation. Strong indicator of identity falsification.",
+        "MRZ CHECKSUM ANOMALY: MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration.",
+        "MRZ CHECKSUM ANOMALY: MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration.",
+        "MRZ CHECKSUM ANOMALY: MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration.",
+        "MRZ CHECKSUM ANOMALY: MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud.",
+        "No significant digital tampering or compression anomalies detected (5/100).",
+        "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+        "Subject and document number clear across prototype security and immigration watchlists."
+      ],
+      "recommendedAction": "Hold passenger. Document fails multiple ICAO Doc 9303 cryptographic check digit calculations. Seize credential for forensic lab examination.",
+      "decision": {
+        "decision": "HOLD FOR SECONDARY VERIFICATION",
+        "action": "Hold passenger. Document fails multiple ICAO Doc 9303 cryptographic check digit calculations. Seize credential for forensic lab examination.",
+        "reasons": [
+          "ICAO Doc 9303 Machine Readable Zone (MRZ) successfully identified and extracted.",
+          "ICAO DOC 9303 INTEGRITY BREACH: Multiple MRZ check digits failed cryptographic validation. Strong indicator of identity falsification.",
+          "MRZ CHECKSUM ANOMALY: MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration.",
+          "MRZ CHECKSUM ANOMALY: MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration.",
+          "MRZ CHECKSUM ANOMALY: MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration.",
+          "MRZ CHECKSUM ANOMALY: MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud.",
+          "No significant digital tampering or compression anomalies detected (5/100).",
+          "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+          "Subject and document number clear across prototype security and immigration watchlists."
+        ]
+      },
+      "status": "Flagged",
+      "timestamp": "2026-09-21T05:52:56.175Z",
+      "isDemoScenario": false,
+      "analysisMode": "REAL_UPLOAD",
+      "processingTimes": {
+        "ocrMs": 2250,
+        "validationMs": 1,
+        "tamperingMs": 672,
+        "syntheticMs": 241,
+        "faceMs": 2,
+        "watchlistMs": 1,
+        "totalMs": 3170
+      },
+      "ocr": {
+        "fullName": "ARJUN MEHTA",
+        "documentType": "Passport",
+        "documentNumber": "Z5487921",
+        "nationality": "IND",
+        "dateOfBirth": "14 Aug 2001",
+        "dateOfBirthIso": "2001-08-14",
+        "gender": "Male",
+        "dateOfIssue": null,
+        "dateOfExpiry": "09 Jan 2032",
+        "dateOfExpiryIso": "2032-01-09",
+        "placeOfBirth": null,
+        "issuingCountry": "IND",
+        "mrz": "P<INDMEHTA<<ARJUN<<<KKKLLLLLLLLCCLLLLLLLLLLL\nZ5487921<1IND0108147M3201097<<<<<<L<LLL<KLK<",
+        "mrzData": {
+          "format": "TD3 (ICAO Doc 9303)",
+          "rawMrz": "P<INDMEHTA<<ARJUN<<<KKKLLLLLLLLCCLLLLLLLLLLL\nZ5487921<1IND0108147M3201097<<<<<<L<LLL<KLK<",
+          "fullName": "ARJUN MEHTA",
+          "surname": "MEHTA",
+          "givenNames": "ARJUN",
+          "documentType": "Passport",
+          "documentNumber": "Z5487921",
+          "issuingCountry": "IND",
+          "nationality": "IND",
+          "dateOfBirth": "14 Aug 2001",
+          "dateOfBirthIso": "2001-08-14",
+          "gender": "Male",
+          "dateOfExpiry": "09 Jan 2032",
+          "dateOfExpiryIso": "2032-01-09",
+          "checkDigits": {
+            "documentNumber": {
+              "field": "documentNumber",
+              "expected": "1",
+              "computed": "7",
+              "calculated": "7",
+              "valid": false,
+              "passed": false,
+              "isVerifiedMismatch": true,
+              "isUncertain": false,
+              "uncertaintyReason": null
+            },
+            "dateOfBirth": {
+              "field": "dateOfBirth",
+              "expected": "7",
+              "computed": "6",
+              "calculated": "6",
+              "valid": false,
+              "passed": false,
+              "isVerifiedMismatch": true,
+              "isUncertain": false,
+              "uncertaintyReason": null
+            },
+            "dateOfExpiry": {
+              "field": "dateOfExpiry",
+              "expected": "7",
+              "computed": "3",
+              "calculated": "3",
+              "valid": false,
+              "passed": false,
+              "isVerifiedMismatch": true,
+              "isUncertain": false,
+              "uncertaintyReason": null
+            },
+            "composite": {
+              "field": "composite",
+              "expected": "<",
+              "computed": "2",
+              "calculated": "2",
+              "valid": false,
+              "passed": false,
+              "isVerifiedMismatch": false,
+              "isUncertain": true,
+              "uncertaintyReason": "MALFORMED_CHECK_DIGIT"
+            },
+            "allValid": false,
+            "hasVerifiedMismatch": true,
+            "hasUncertainty": true,
+            "verifiedMismatchCount": 3,
+            "uncertaintyCount": 1
+          }
+        },
+        "visualFields": {
+          "documentNumber": "Z5487921",
+          "nationality": "Code"
+        },
+        "rawText": "HR MURTSA REPUBLIC OF INDIA\nYIEUIE / PASSPORT Yee Type 2 FZ / Country Code TREE F. / Passport No.\n11 IND 75487921\n39TH / Surname\n3 MEHTA 0\nfer a 1 / Given Name(s) : i J\nARJUN They\nLr / Nationality <= foifdr / Date of Birth ProL\nINDIAN 14 AUG 2001 EE\nfo / Sex SFR WAH / Place of Birth HegHa SET\nIm NEW DELHI, DELHI\nSY 25 1 a / Place of Issue.\nNEW DELHI\n5 Mla Sr 5 2 ff Date of Issue Ey #1 Rf / Date of Expiry\nArjun 10 JAN 2022 09 JAN 2032\nP<INDMEHTA<<ARJUN<<<KKKLLLLLL LLC CLLLLLLLLLLLL\nZ5487921<1IND0108147M3201097<<<<<<L<LLL<KLK<K<<K<08\n",
+        "confidence": 0.59,
+        "ocrStatus": "SUCCESS",
+        "fieldsDetected": 6,
+        "extractionTimeMs": 2249,
+        "isDemoScenario": false,
+        "documentTypeSource": "ICAO Doc 9303 MRZ Detected"
+      },
+      "validation": {
+        "score": "10%",
+        "numericScore": 10,
+        "passed": false,
+        "status": "fail",
+        "issues": [
+          {
+            "rule": "MRZ_DOC_CHECK_DIGIT_FAILED",
+            "field": "documentNumber",
+            "severity": "High",
+            "message": "MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration."
+          },
+          {
+            "rule": "MRZ_DOB_CHECK_DIGIT_FAILED",
+            "field": "dateOfBirth",
+            "severity": "High",
+            "message": "MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration."
+          },
+          {
+            "rule": "MRZ_EXPIRY_CHECK_DIGIT_FAILED",
+            "field": "dateOfExpiry",
+            "severity": "High",
+            "message": "MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration."
+          },
+          {
+            "rule": "MRZ_CHECK_DIGIT_UNCERTAIN",
+            "field": "composite",
+            "severity": "Medium",
+            "message": "MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud."
+          },
+          {
+            "rule": "MULTIPLE_MRZ_CHECKSUM_FAILURES",
+            "field": "mrz",
+            "severity": "High",
+            "message": "Multiple ICAO Doc 9303 check digits failed recalculation (3 verified failures). Indicates systematic cryptographic forgery or artificial MRZ generation."
+          }
+        ],
+        "checksPerformed": [
+          "Required identity attributes inspection",
+          "Document validity and expiration check",
+          "ICAO Doc 9303 MRZ check digits verification",
+          "Cross-field consistency check (Visual Zone vs MRZ)",
+          "Date chronology sanity inspection"
+        ],
+        "checksumDetails": [
+          {
+            "field": "documentNumber",
+            "expected": "1",
+            "computed": "7",
+            "passed": false,
+            "valid": false,
+            "isVerifiedMismatch": true,
+            "isUncertain": false,
+            "uncertaintyReason": null
+          },
+          {
+            "field": "dateOfBirth",
+            "expected": "7",
+            "computed": "6",
+            "passed": false,
+            "valid": false,
+            "isVerifiedMismatch": true,
+            "isUncertain": false,
+            "uncertaintyReason": null
+          },
+          {
+            "field": "dateOfExpiry",
+            "expected": "7",
+            "computed": "3",
+            "passed": false,
+            "valid": false,
+            "isVerifiedMismatch": true,
+            "isUncertain": false,
+            "uncertaintyReason": null
+          },
+          {
+            "field": "composite",
+            "expected": "<",
+            "computed": "2",
+            "passed": false,
+            "valid": false,
+            "isVerifiedMismatch": false,
+            "isUncertain": true,
+            "uncertaintyReason": "MALFORMED_CHECK_DIGIT"
+          }
+        ],
+        "failedChecksumCount": 3,
+        "verifiedFailedChecksumCount": 3,
+        "checksumUncertaintyCount": 1,
+        "hasChecksumFail": true,
+        "hasVerifiedChecksumFail": true,
+        "hasMultipleChecksumFailures": true,
+        "hasChecksumUncertainty": true,
+        "summary": "MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration. | MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration. | MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration. | MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud. | Multiple ICAO Doc 9303 check digits failed recalculation (3 verified failures). Indicates systematic cryptographic forgery or artificial MRZ generation."
+      },
+      "tampering": {
+        "tamperingScore": 5,
+        "tamperingRisk": "Low",
+        "evidenceStatus": "LOW",
+        "indicators": [],
+        "confidence": 0.94,
+        "details": {
+          "elaMean": 2.69,
+          "elaMax": 21,
+          "elaBlockVariance": 1.07,
+          "metadataSoftware": "No third-party editing signatures found",
+          "imageDimensions": "765x536"
+        },
+        "methodology": "Prototype image-forensic analysis using deterministic image heuristics (Error Level Analysis & metadata inspection)."
+      },
+      "synthetic": {
+        "syntheticScore": 10,
+        "suspicionLevel": "LOW_SUSPICION",
+        "status": "LOW_SUSPICION",
+        "score": 10,
+        "confidence": "HEURISTIC",
+        "method": "Local spatial gradient, edge variance, and template geometry heuristic analysis",
+        "indicators": [],
+        "metrics": {
+          "edgeVariance": 61.9,
+          "textureUniformityScore": 10.8,
+          "aspectRatio": 1.43,
+          "aspectRatioAnomaly": false,
+          "aiMetadataFound": false
+        },
+        "isHeuristic": true,
+        "methodology": "Local image-forensic heuristics: spatial Laplacian edge variance, substrate texture uniformity, template aspect ratio validation, and metadata marker scanning.",
+        "limitations": "Heuristic spatial and geometric analysis. Indicates anomalies common to synthetic/AI generation; not a trained deep-learning neural discriminator."
+      },
+      "faceVerification": {
+        "isProvided": false,
+        "similarity": null,
+        "status": "NOT PROVIDED",
+        "evidenceStatus": "NOT_PROVIDED",
+        "confidence": 0,
+        "landmarksMatched": "N/A",
+        "livenessCheck": "Not Conducted",
+        "documentPhotoUrl": null,
+        "presentedPhotoUrl": null,
+        "assessment": "Presented person photograph was not supplied; biometric verification could not be completed.",
+        "methodology": "Prototype 1:1 facial image-similarity verification",
+        "limitations": "Biometric evidence unavailable: live photo not presented by traveler."
+      },
+      "watchlist": {
+        "matched": false,
+        "matchCount": 0,
+        "matchedField": null,
+        "recordIdentifier": null,
+        "alertType": null,
+        "matchReason": null,
+        "status": "CLEAR",
+        "matchDetails": null,
+        "summary": "No matches found across prototype security and immigration watchlists."
+      },
+      "signalContributions": {
+        "ocr": {
+          "score": 59,
+          "penalty": 10,
+          "weight": 15,
+          "weightedPoints": 1
+        },
+        "validation": {
+          "score": 10,
+          "penalty": 98,
+          "weight": 20,
+          "weightedPoints": 17
+        },
+        "tampering": {
+          "score": 5,
+          "penalty": 5,
+          "weight": 30,
+          "weightedPoints": 1
+        },
+        "synthetic": {
+          "score": 10,
+          "penalty": 10,
+          "weight": 15,
+          "weightedPoints": 1
+        },
+        "face": {
+          "score": null,
+          "isProvided": false,
+          "penalty": 25,
+          "weight": 25,
+          "weightedPoints": 5
+        },
+        "watchlist": {
+          "matched": false,
+          "penalty": 0,
+          "weight": 10,
+          "weightedPoints": 0
+        }
+      },
+      "signalEvidence": {
+        "ocr": {
+          "status": "PASS",
+          "confidence": 0.59,
+          "fieldsDetected": 6
+        },
+        "validation": {
+          "status": "FAIL",
+          "anomalies": [
+            {
+              "rule": "MRZ_DOC_CHECK_DIGIT_FAILED",
+              "field": "documentNumber",
+              "severity": "High",
+              "message": "MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration."
+            },
+            {
+              "rule": "MRZ_DOB_CHECK_DIGIT_FAILED",
+              "field": "dateOfBirth",
+              "severity": "High",
+              "message": "MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration."
+            },
+            {
+              "rule": "MRZ_EXPIRY_CHECK_DIGIT_FAILED",
+              "field": "dateOfExpiry",
+              "severity": "High",
+              "message": "MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration."
+            },
+            {
+              "rule": "MRZ_CHECK_DIGIT_UNCERTAIN",
+              "field": "composite",
+              "severity": "Medium",
+              "message": "MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud."
+            },
+            {
+              "rule": "MULTIPLE_MRZ_CHECKSUM_FAILURES",
+              "field": "mrz",
+              "severity": "High",
+              "message": "Multiple ICAO Doc 9303 check digits failed recalculation (3 verified failures). Indicates systematic cryptographic forgery or artificial MRZ generation."
+            }
+          ],
+          "numericScore": 10,
+          "hasChecksumFail": true,
+          "hasMultipleChecksumFailures": true,
+          "checksumDetails": [
+            {
+              "field": "documentNumber",
+              "expected": "1",
+              "computed": "7",
+              "passed": false,
+              "valid": false,
+              "isVerifiedMismatch": true,
+              "isUncertain": false,
+              "uncertaintyReason": null
+            },
+            {
+              "field": "dateOfBirth",
+              "expected": "7",
+              "computed": "6",
+              "passed": false,
+              "valid": false,
+              "isVerifiedMismatch": true,
+              "isUncertain": false,
+              "uncertaintyReason": null
+            },
+            {
+              "field": "dateOfExpiry",
+              "expected": "7",
+              "computed": "3",
+              "passed": false,
+              "valid": false,
+              "isVerifiedMismatch": true,
+              "isUncertain": false,
+              "uncertaintyReason": null
+            },
+            {
+              "field": "composite",
+              "expected": "<",
+              "computed": "2",
+              "passed": false,
+              "valid": false,
+              "isVerifiedMismatch": false,
+              "isUncertain": true,
+              "uncertaintyReason": "MALFORMED_CHECK_DIGIT"
+            }
+          ]
+        },
+        "tampering": {
+          "status": "LOW",
+          "score": 5,
+          "indicators": []
+        },
+        "synthetic": {
+          "status": "LOW_SUSPICION",
+          "score": 10,
+          "indicators": []
+        },
+        "face": {
+          "status": "NOT_PROVIDED",
+          "similarity": null,
+          "isProvided": false
+        },
+        "watchlist": {
+          "status": "CLEAR",
+          "match": false,
+          "record": null
+        }
+      },
+      "checks": [
+        {
+          "id": "ocr",
+          "title": "OCR Extraction",
+          "description": "Extracted 6 key identity attributes (ICAO Doc 9303 MRZ Detected).",
+          "status": "warning",
+          "score": "59%"
+        },
+        {
+          "id": "validation",
+          "title": "Document Validation",
+          "description": "MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration. | MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration. | MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration. | MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud. | Multiple ICAO Doc 9303 check digits failed recalculation (3 verified failures). Indicates systematic cryptographic forgery or artificial MRZ generation.",
+          "status": "fail",
+          "score": "10%"
+        },
+        {
+          "id": "tampering",
+          "title": "Tampering Forensics",
+          "description": "No visual manipulation or metadata anomalies detected.",
+          "status": "pass",
+          "score": "95%"
+        },
+        {
+          "id": "synthetic",
+          "title": "Synthetic Detection",
+          "description": "Substrate and edge variance consistent with authentic physical credential.",
+          "status": "pass",
+          "score": "90%"
+        },
+        {
+          "id": "face",
+          "title": "Face Verification",
+          "description": "Presented person photograph was not supplied; biometric verification could not be completed.",
+          "status": "warning",
+          "score": "UNVERIFIED"
+        },
+        {
+          "id": "watchlist",
+          "title": "Watchlist Check",
+          "description": "No matches found across prototype security and immigration watchlists.",
+          "status": "pass",
+          "score": "CLEAR"
+        }
+      ]
+    },
+    {
       "id": "VG-2026-36176",
       "verificationId": "VG-2026-36176",
       "screeningId": "VG-2026-36176",
@@ -119236,328 +120053,42 @@
           "score": "CLEAR"
         }
       ]
-    },
-    {
-      "id": "VG-2026-10482",
-      "verificationId": "VG-2026-10482",
-      "personName": "Rahul Sharma",
-      "documentType": "Passport",
-      "documentNumber": "P8XXXX42",
-      "nationality": "Indian",
-      "riskScore": 18,
-      "riskLevel": "LOW",
-      "recommendation": "PROCEED",
-      "status": "Verified",
-      "timestamp": "2026-09-15T06:05:30.545Z",
-      "reasons": [
-        "Required document information was successfully extracted.",
-        "Document validity and integrity checks passed without warnings.",
-        "No visual tampering or metadata anomalies detected.",
-        "Strong biometric face similarity (96%).",
-        "No matches found against security watchlist databases."
-      ],
-      "recommendedAction": "Proceed with verification.",
-      "ocr": {
-        "fullName": "Rahul Sharma",
-        "documentType": "Passport",
-        "documentNumber": "P8XXXX42",
-        "nationality": "Indian",
-        "dateOfBirth": "14 May 2002",
-        "gender": "Male",
-        "dateOfIssue": "14 May 2022",
-        "dateOfExpiry": "14 May 2032",
-        "placeOfBirth": "New Delhi, IND",
-        "issuingCountry": "IND",
-        "mrz": "P<INDRSHARMA<<RAHUL<<<<<<<<<<<<<<<<<<<<<<<\nP8XXXX42<8IND0205142M3205144<<<<<<<<<<<<<<06"
-      },
-      "checks": [
-        {
-          "id": "ocr",
-          "title": "OCR Extraction",
-          "description": "Required fields successfully extracted with 98% confidence.",
-          "status": "pass",
-          "score": "98%"
-        },
-        {
-          "id": "validation",
-          "title": "Document Validation",
-          "description": "Document number format and date ranges are valid.",
-          "status": "pass",
-          "score": "96%"
-        },
-        {
-          "id": "tampering",
-          "title": "Tampering Analysis",
-          "description": "No photo replacement, font anomalies, or compression edits.",
-          "status": "pass",
-          "score": "94%"
-        },
-        {
-          "id": "face",
-          "title": "Face Verification",
-          "description": "Document photo strongly matches presented identity.",
-          "status": "pass",
-          "score": "96%"
-        },
-        {
-          "id": "watchlist",
-          "title": "Watchlist Check",
-          "description": "Identity clear across all watchlist databases.",
-          "status": "pass",
-          "score": "CLEAR"
-        }
-      ],
-      "tampering": {
-        "tamperingScore": 6,
-        "tamperingRisk": "Low",
-        "indicators": [],
-        "confidence": 0.96
-      },
-      "faceVerification": {
-        "similarity": 96,
-        "status": "Strong Match",
-        "confidence": 0.94
-      },
-      "watchlist": {
-        "matched": false,
-        "matchDetails": null
-      }
-    },
-    {
-      "id": "VG-2026-10481",
-      "verificationId": "VG-2026-10481",
-      "personName": "Daniel Wilson",
-      "documentType": "Visa",
-      "documentNumber": "V-9921048",
-      "nationality": "British",
-      "riskScore": 47,
-      "riskLevel": "MEDIUM",
-      "recommendation": "MANUAL REVIEW",
-      "status": "Review",
-      "timestamp": "2026-09-15T06:01:30.546Z",
-      "reasons": [
-        "Stay duration does not match entry stamp dates.",
-        "Moderate face verification similarity (68%).",
-        "Minor font inconsistency detected in issuing authority field."
-      ],
-      "recommendedAction": "Perform manual officer inspection of original visa stamp.",
-      "ocr": {
-        "fullName": "Daniel Wilson",
-        "documentType": "Visa",
-        "visaNumber": "V-9921048",
-        "passportNumber": "GBR-902188",
-        "nationality": "British",
-        "dateOfBirth": "08 Sep 1988",
-        "dateOfIssue": "10 Jan 2026",
-        "dateOfExpiry": "10 Jul 2026",
-        "entryType": "Multiple",
-        "stayDuration": "90 Days",
-        "issuingAuthority": "London High Commission"
-      },
-      "checks": [
-        {
-          "id": "ocr",
-          "title": "OCR Extraction",
-          "description": "Extracted information with minor font variance.",
-          "status": "pass",
-          "score": "92%"
-        },
-        {
-          "id": "validation",
-          "title": "Document Validation",
-          "description": "Stay duration inconsistency detected.",
-          "status": "warning",
-          "score": "72%"
-        },
-        {
-          "id": "tampering",
-          "title": "Tampering Analysis",
-          "description": "Possible font misalignment in authority region.",
-          "status": "warning",
-          "score": "68%"
-        },
-        {
-          "id": "face",
-          "title": "Face Verification",
-          "description": "Moderate similarity score requires manual check.",
-          "status": "warning",
-          "score": "68%"
-        },
-        {
-          "id": "watchlist",
-          "title": "Watchlist Check",
-          "description": "Identity clear across watchlist.",
-          "status": "pass",
-          "score": "CLEAR"
-        }
-      ],
-      "tampering": {
-        "tamperingScore": 34,
-        "tamperingRisk": "Medium",
-        "indicators": [
-          "Font variance detected in authority text region"
-        ],
-        "confidence": 0.82
-      },
-      "faceVerification": {
-        "similarity": 68,
-        "status": "Manual Review Required",
-        "confidence": 0.81
-      },
-      "watchlist": {
-        "matched": false,
-        "matchDetails": null
-      }
-    },
-    {
-      "id": "VG-2026-10480",
-      "verificationId": "VG-2026-10480",
-      "personName": "Elena Rostova",
-      "documentType": "Passport",
-      "documentNumber": "P89123450",
-      "nationality": "Ukrainian",
-      "riskScore": 74,
-      "riskLevel": "HIGH",
-      "recommendation": "HOLD FOR SECONDARY VERIFICATION",
-      "status": "Flagged",
-      "timestamp": "2026-09-15T05:56:30.546Z",
-      "reasons": [
-        "Significant photo replacement boundary anomalies detected.",
-        "Date of Expiry shows localized compression artifacts and digital manipulation.",
-        "Biometric facial match confidence below acceptable threshold (52%)."
-      ],
-      "recommendedAction": "Hold passenger for secondary immigration screening and forensics examination.",
-      "ocr": {
-        "fullName": "Elena Rostova",
-        "documentType": "Passport",
-        "documentNumber": "P89123450",
-        "nationality": "Ukrainian",
-        "dateOfBirth": "22 Nov 1994",
-        "gender": "Female",
-        "dateOfIssue": "15 Jan 2019",
-        "dateOfExpiry": "15 Jan 2029",
-        "placeOfBirth": "Kyiv, UKR",
-        "issuingCountry": "UKR"
-      },
-      "checks": [
-        {
-          "id": "ocr",
-          "title": "OCR Extraction",
-          "description": "Extracted successfully but checksum anomaly.",
-          "status": "warning",
-          "score": "84%"
-        },
-        {
-          "id": "validation",
-          "title": "Document Validation",
-          "description": "Expiry date format altered.",
-          "status": "warning",
-          "score": "60%"
-        },
-        {
-          "id": "tampering",
-          "title": "Tampering Analysis",
-          "description": "Photo replacement and digital alteration detected.",
-          "status": "fail",
-          "score": "28%"
-        },
-        {
-          "id": "face",
-          "title": "Face Verification",
-          "description": "Significant facial landmark mismatch.",
-          "status": "fail",
-          "score": "52%"
-        },
-        {
-          "id": "watchlist",
-          "title": "Watchlist Check",
-          "description": "Flagged on border checkpoint advisory.",
-          "status": "warning",
-          "score": "ALERT"
-        }
-      ],
-      "tampering": {
-        "tamperingScore": 76,
-        "tamperingRisk": "High",
-        "indicators": [
-          "Photo perimeter contains edge blending and clone stamp artifacts",
-          "Expiry date region shows inconsistent JPEG compression grid",
-          "MRZ checksum mismatch with visual zone expiry"
-        ],
-        "confidence": 0.91
-      },
-      "faceVerification": {
-        "similarity": 52,
-        "status": "Mismatch / Suspect",
-        "confidence": 0.89
-      },
-      "watchlist": {
-        "matched": true,
-        "matchDetails": {
-          "name": "Elena Rostova",
-          "riskLevel": "HIGH",
-          "reason": "Suspicious Document Tampering & Altered Expiry Date"
-        }
-      }
-    },
-    {
-      "id": "VG-2026-10479",
-      "verificationId": "VG-2026-10479",
-      "personName": "Michael Brown",
-      "documentType": "Passport",
-      "documentNumber": "USA-551029",
-      "nationality": "American",
-      "riskScore": 12,
-      "riskLevel": "LOW",
-      "recommendation": "PROCEED",
-      "status": "Verified",
-      "timestamp": "2026-09-15T05:49:30.546Z",
-      "reasons": [
-        "All primary security checks passed.",
-        "No tampering or anomalies found.",
-        "High face similarity (98%)."
-      ],
-      "recommendedAction": "Proceed with verification."
-    },
-    {
-      "id": "VG-2026-10478",
-      "verificationId": "VG-2026-10478",
-      "personName": "Sofia Martinez",
-      "documentType": "National ID",
-      "documentNumber": "ES-849201",
-      "nationality": "Spanish",
-      "riskScore": 22,
-      "riskLevel": "LOW",
-      "recommendation": "PROCEED",
-      "status": "Verified",
-      "timestamp": "2026-09-15T05:43:30.546Z",
-      "reasons": [
-        "Document valid and clean.",
-        "Face similarity verified at 94%."
-      ],
-      "recommendedAction": "Proceed with verification."
-    },
-    {
-      "id": "VG-2026-10477",
-      "verificationId": "VG-2026-10477",
-      "personName": "Tariq Al-Mansoor",
-      "documentType": "Passport",
-      "documentNumber": "M90124881",
-      "nationality": "Syrian",
-      "riskScore": 92,
-      "riskLevel": "CRITICAL",
-      "recommendation": "ESCALATE",
-      "status": "Flagged",
-      "timestamp": "2026-09-15T05:22:30.546Z",
-      "reasons": [
-        "Match identified against Interpol Red Notice #A-2025-9921.",
-        "High tampering score: altered passport number and photo replacement.",
-        "Biometric facial discrepancy detected."
-      ],
-      "recommendedAction": "Immediate detention and escalation to Border Police Commander."
     }
   ],
   "cases": [
+    {
+      "id": "CASE-2026-005",
+      "caseId": "CASE-2026-005",
+      "verificationId": "VG-2026-60323",
+      "personName": "ARJUN MEHTA",
+      "documentType": "Passport",
+      "documentNumber": "Z5487921",
+      "riskScore": 85,
+      "riskLevel": "CRITICAL",
+      "recommendation": "HOLD FOR SECONDARY VERIFICATION",
+      "status": "Open",
+      "assignedOfficer": "Alex Singh",
+      "createdTime": "2026-09-21T05:53:06.487Z",
+      "lastUpdated": "2026-09-21T05:53:06.487Z",
+      "reasons": [
+        "ICAO Doc 9303 Machine Readable Zone (MRZ) successfully identified and extracted.",
+        "ICAO DOC 9303 INTEGRITY BREACH: Multiple MRZ check digits failed cryptographic validation. Strong indicator of identity falsification.",
+        "MRZ CHECKSUM ANOMALY: MRZ Document Number check digit verified mismatch (Expected: 1, Computed: 7). Cryptographic inconsistency indicates potential alteration.",
+        "MRZ CHECKSUM ANOMALY: MRZ Date of Birth check digit verified mismatch (Expected: 7, Computed: 6). Cryptographic inconsistency indicates potential alteration.",
+        "MRZ CHECKSUM ANOMALY: MRZ Expiry Date check digit verified mismatch (Expected: 7, Computed: 3). Cryptographic inconsistency indicates potential alteration.",
+        "MRZ CHECKSUM ANOMALY: MRZ composite check digit could not be verified with cryptographic certainty (MALFORMED_CHECK_DIGIT). Classified as optical/formatting uncertainty, not confirmed fraud.",
+        "No significant digital tampering or compression anomalies detected (5/100).",
+        "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+        "Subject and document number clear across prototype security and immigration watchlists."
+      ],
+      "evidence": [
+        "Verification ID: VG-2026-60323",
+        "Tampering score: 5/100",
+        "Face similarity: 0%",
+        "Watchlist clear"
+      ],
+      "notes": "Automated case created by Officer from screening decision HOLD FOR SECONDARY VERIFICATION."
+    },
     {
       "id": "CASE-2026-004",
       "caseId": "CASE-2026-004",
@@ -119652,6 +120183,17 @@
     }
   ],
   "alerts": [
+    {
+      "id": "ALT-971",
+      "severity": "Critical",
+      "type": "Document Tampering",
+      "title": "High risk document detected: ARJUN MEHTA",
+      "description": "ICAO Doc 9303 Machine Readable Zone (MRZ) successfully identified and extracted.",
+      "verificationId": "VG-2026-60323",
+      "time": "Just now",
+      "timestamp": "2026-09-21T05:52:56.278Z",
+      "status": "New"
+    },
     {
       "id": "ALT-245",
       "severity": "High",
@@ -120148,7 +120690,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-373",
+      "id": "ALT-373-46",
       "severity": "High",
       "type": "Watchlist Match",
       "title": "Watchlist match: Elena Rostova",
@@ -120214,7 +120756,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-139",
+      "id": "ALT-139-52",
       "severity": "Critical",
       "type": "Document Tampering",
       "title": "High risk document detected: CARLOS MENDOZA",
@@ -120401,7 +120943,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-663",
+      "id": "ALT-663-69",
       "severity": "Critical",
       "type": "Document Tampering",
       "title": "High risk document detected: ALEX SMITH",
@@ -120478,7 +121020,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-825",
+      "id": "ALT-825-76",
       "severity": "Critical",
       "type": "Document Tampering",
       "title": "High risk document detected: ARJUN MEHTA",
@@ -120709,7 +121251,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-698",
+      "id": "ALT-698-97",
       "severity": "High",
       "type": "Document Tampering",
       "title": "High risk document detected: null",
@@ -120896,7 +121438,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-596",
+      "id": "ALT-596-114",
       "severity": "Critical",
       "type": "Watchlist Match",
       "title": "Watchlist match: TARIQ AL MANSOOR",
@@ -121072,7 +121614,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-573",
+      "id": "ALT-573-130",
       "severity": "Critical",
       "type": "Document Tampering",
       "title": "High risk document detected: ALEX SMITH",
@@ -121281,7 +121823,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-182",
+      "id": "ALT-182-149",
       "severity": "Critical",
       "type": "Document Tampering",
       "title": "High risk document detected: CARLOS MENDOZA",
@@ -121314,7 +121856,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-910",
+      "id": "ALT-910-152",
       "severity": "High",
       "type": "Document Tampering",
       "title": "High risk document detected: null",
@@ -121380,7 +121922,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-790",
+      "id": "ALT-790-158",
       "severity": "High",
       "type": "Document Tampering",
       "title": "High risk document detected: ANNA MARJA ERIKSSON",
@@ -121523,7 +122065,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-128",
+      "id": "ALT-128-171",
       "severity": "Critical",
       "type": "Document Tampering",
       "title": "High risk document detected: VIKRAM VALI",
@@ -121545,7 +122087,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-311",
+      "id": "ALT-311-173",
       "severity": "Critical",
       "type": "Watchlist Match",
       "title": "Watchlist match: TARIQ AL MANSOOR",
@@ -121589,7 +122131,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-862",
+      "id": "ALT-862-177",
       "severity": "Critical",
       "type": "Watchlist Match",
       "title": "Watchlist match: TARIQ AL MANSOOR",
@@ -121600,7 +122142,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-373",
+      "id": "ALT-373-178",
       "severity": "High",
       "type": "Document Tampering",
       "title": "High risk document detected: ANNA MARJA ERIKSSON",
@@ -121622,7 +122164,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-468",
+      "id": "ALT-468-180",
       "severity": "High",
       "type": "Watchlist Match",
       "title": "Watchlist match: Elena Rostova",
@@ -121644,7 +122186,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-994",
+      "id": "ALT-994-182",
       "severity": "High",
       "type": "Document Tampering",
       "title": "High risk document detected: ANNA MARJA ERIKSSON",
@@ -121688,7 +122230,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-966",
+      "id": "ALT-966-186",
       "severity": "High",
       "type": "Document Tampering",
       "title": "High risk document detected: ANNA MARJA ERIKSSON",
@@ -121820,7 +122362,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-537",
+      "id": "ALT-537-198",
       "severity": "Critical",
       "type": "Watchlist Match",
       "title": "Watchlist match: Tariq Al-Mansoor",
@@ -121831,7 +122373,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-656",
+      "id": "ALT-656-199",
       "severity": "High",
       "type": "Watchlist Match",
       "title": "Watchlist match: Elena Rostova",
@@ -121864,7 +122406,7 @@
       "status": "New"
     },
     {
-      "id": "ALT-634",
+      "id": "ALT-634-202",
       "severity": "High",
       "type": "Watchlist Match",
       "title": "Watchlist match: Elena Rostova",
@@ -121967,6 +122509,36 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "AUD-986548",
+      "timestamp": "2026-09-21T05:53:06.548Z",
+      "officer": "Alex Singh",
+      "action": "Case Created",
+      "entity": "Case",
+      "entityId": "CASE-2026-005",
+      "result": "Created for ARJUN MEHTA (CRITICAL Risk)",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-976473",
+      "timestamp": "2026-09-21T05:52:56.473Z",
+      "officer": "Alex Singh",
+      "action": "Verification Completed",
+      "entity": "Screening",
+      "entityId": "VG-2026-60323",
+      "result": "Risk Score: 85/100 (HOLD FOR SECONDARY VERIFICATION)",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-976371",
+      "timestamp": "2026-09-21T05:52:56.371Z",
+      "officer": "Alex Singh",
+      "action": "Alert Generated",
+      "entity": "Alert",
+      "entityId": "ALT-971",
+      "result": "CRITICAL Risk Triggered",
+      "ipAddress": "127.0.0.1"
+    },
     {
       "id": "AUD-467288",
       "timestamp": "2026-09-21T05:44:27.288Z",

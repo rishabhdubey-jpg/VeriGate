@@ -133,13 +133,13 @@ export default function Alerts() {
         ) : alerts.length === 0 ? (
           <div className="panel p-6 text-center muted">No alerts match the selected criteria.</div>
         ) : (
-          alerts.map((alert) => {
+          alerts.map((alert, idx) => {
             const sev = (alert.severity || "High").toLowerCase();
             const Icon = sev === "critical" ? AlertOctagon : AlertTriangle;
 
             return (
               <div
-                key={alert.id}
+                key={`${alert.id}-${idx}`}
                 className={`alert-card-item ${sev}`}
                 style={{ cursor: "pointer" }}
                 onClick={() => openAlertDetails(alert)}
