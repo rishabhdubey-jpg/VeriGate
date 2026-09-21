@@ -60,6 +60,7 @@ export const api = {
 
   // Alerts
   getAlerts: (params = "") => fetchApi(`/alerts${params}`),
+  getAlert: (id) => fetchApi(`/alerts/${id}`),
   updateAlert: (id, data) =>
     fetchApi(`/alerts/${id}`, {
       method: "PATCH",

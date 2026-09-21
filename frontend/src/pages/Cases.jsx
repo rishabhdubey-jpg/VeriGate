@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   FolderOpen,
   Search,
@@ -12,6 +13,9 @@ import {
   User,
   Clock,
   ShieldAlert,
+  FileCheck2,
+  Bell,
+  RefreshCw,
 } from "lucide-react";
 import { api } from "../utils/api";
 
@@ -26,12 +30,15 @@ function StatusBadge({ status }) {
 }
 
 export default function Cases() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [riskFilter, setRiskFilter] = useState("ALL");
   const [selectedCase, setSelectedCase] = useState(null);
+  const [modalLoading, setModalLoading] = useState(false);
   const [showNewModal, setShowNewModal] = useState(false);
   const [newCaseData, setNewCaseData] = useState({
     personName: "",
@@ -65,9 +72,38 @@ export default function Cases() {
     }
   };
 
+  const openCaseDetails = async (itemOrId) => {
+    const caseId = typeof itemOrId === "string" ? itemOrId : itemOrId?.id;
+    if (!caseId) return;
+
+    if (typeof itemOrId === "object" && itemOrId !== null) {
+      setSelectedCase(itemOrId);
+    }
+    setModalLoading(true);
+
+    try {
+      const res = await api.getCase(caseId);
+      if (res?.data) {
+        setSelectedCase(res.data);
+      }
+    } catch (err) {
+      console.warn("Could not fetch detailed case record:", err);
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadCases();
   }, [statusFilter, riskFilter]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const targetId = params.get("id") || params.get("caseId");
+    if (targetId) {
+      openCaseDetails(targetId);
+    }
+  }, [location.search]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -208,7 +244,11 @@ export default function Cases() {
                 </tr>
               ) : (
                 cases.map((c) => (
-                  <tr key={c.id}>
+                  <tr
+                    key={c.id}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => openCaseDetails(c)}
+                  >
                     <td className="screening-id">{c.id}</td>
                     <td>
                       <strong>{c.personName}</strong>
@@ -237,7 +277,10 @@ export default function Cases() {
                       <button
                         type="button"
                         className="text-button flex-btn"
-                        onClick={() => setSelectedCase(c)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openCaseDetails(c);
+                        }}
                         title="View Case Details"
                       >
                         <Eye size={14} /> Review
@@ -259,7 +302,7 @@ export default function Cases() {
               <div>
                 <span className="eyebrow">CASE DOSSIER</span>
                 <h2>{selectedCase.id} — {selectedCase.personName}</h2>
-                <p>Associated Verification: {selectedCase.verificationId}</p>
+                <p>Associated Verification: {selectedCase.verificationId || "None"}</p>
               </div>
               <button className="icon-button" onClick={() => setSelectedCase(null)}>
                 <X size={18} />
@@ -267,6 +310,12 @@ export default function Cases() {
             </div>
 
             <div className="modal-body">
+              {modalLoading && (
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 0", color: "#64748b", fontSize: 13 }}>
+                  <RefreshCw size={14} className="spin" /> Loading full case records...
+                </div>
+              )}
+
               <div className="case-meta-grid">
                 <div>
                   <span>Document Type:</span>
@@ -285,6 +334,71 @@ export default function Cases() {
                   <strong>{selectedCase.assignedOfficer}</strong>
                 </div>
               </div>
+
+              {/* ASSOCIATED VERIFICATION RECORD */}
+              {selectedCase.verificationId && (
+                <div className="case-section" style={{ background: "#f8fafc", padding: "12px 14px", borderRadius: 8, border: "1px solid #e2e8f0" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 600, fontSize: 13, color: "#1e293b" }}>
+                      <FileCheck2 size={16} style={{ color: "#0284c7" }} />
+                      <span>Associated Screening Dossier ({selectedCase.verificationId})</span>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", padding: "8px 10px", borderRadius: 6, border: "1px solid #cbd5e1" }}>
+                    <div>
+                      <strong style={{ fontSize: 13, color: "#0f172a" }}>{selectedCase.verificationId}</strong> —{" "}
+                      <span style={{ fontSize: 12, color: "#475569" }}>
+                        {selectedCase.associatedScreening
+                          ? `${selectedCase.associatedScreening.documentType} · Score: ${selectedCase.associatedScreening.riskScore}/100`
+                          : "Primary inspection record"}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      style={{ padding: "4px 10px", fontSize: 12 }}
+                      onClick={() => {
+                        setSelectedCase(null);
+                        navigate(`/history?id=${selectedCase.verificationId}`);
+                      }}
+                    >
+                      View Verification
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* ASSOCIATED ALERTS */}
+              {selectedCase.relatedAlerts && selectedCase.relatedAlerts.length > 0 && (
+                <div className="case-section" style={{ background: "#fef2f2", padding: "12px 14px", borderRadius: 8, border: "1px solid #fecaca" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 600, fontSize: 13, color: "#991b1b" }}>
+                      <Bell size={16} style={{ color: "#ef4444" }} />
+                      <span>Linked Security Alerts ({selectedCase.relatedAlerts.length})</span>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {selectedCase.relatedAlerts.map((ra) => (
+                      <div key={ra.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", padding: "8px 10px", borderRadius: 6, border: "1px solid #fca5a5" }}>
+                        <div>
+                          <strong style={{ fontSize: 13, color: "#7f1d1d" }}>{ra.id}</strong> — <span style={{ fontSize: 12, color: "#374151" }}>{ra.title}</span>
+                        </div>
+                        <button
+                          type="button"
+                          className="secondary-button"
+                          style={{ padding: "3px 8px", fontSize: 12 }}
+                          onClick={() => {
+                            setSelectedCase(null);
+                            navigate(`/alerts?id=${ra.id}`);
+                          }}
+                        >
+                          Open Alert
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="case-section">
                 <h3>Current Status & Actions</h3>

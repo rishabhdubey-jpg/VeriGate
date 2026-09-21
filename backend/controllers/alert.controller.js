@@ -44,3 +44,28 @@ export const updateAlert = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAlertById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const item = db.findById("alerts", id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: "Alert not found" });
+    }
+
+    const associatedCase = item.caseId ? db.findById("cases", item.caseId) : null;
+    const associatedScreening = item.verificationId ? db.findById("screenings", item.verificationId) : null;
+
+    res.status(200).json({
+      success: true,
+      data: {
+        ...item,
+        associatedCase,
+        associatedScreening,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

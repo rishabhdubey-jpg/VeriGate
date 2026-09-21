@@ -15,6 +15,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/screening" element={<Screening />} />
+      <Route path="/scan" element={<Screening />} />
       <Route path="/cases" element={<Cases />} />
       <Route path="/history" element={<History />} />
       <Route path="/alerts" element={<Alerts />} />

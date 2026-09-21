@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   AlertOctagon,
   RefreshCw,
+  Eye,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
@@ -193,27 +194,52 @@ export default function Dashboard() {
                   <th>Decision</th>
                   <th>Risk Score</th>
                   <th>Time</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
-                {recentScreenings.map((item) => (
-                  <tr key={item.id}>
-                    <td className="screening-id">{item.verificationId || item.id}</td>
-                    <td>
-                      <strong>{item.personName || item.name}</strong>
-                    </td>
-                    <td>{item.documentType || item.document}</td>
-                    <td>
-                      <StatusBadge status={item.recommendation || item.status} />
-                    </td>
-                    <td>
-                      <RiskBadge risk={item.riskLevel || item.risk} />{" "}
-                      <span className="small-score">({item.riskScore || 18}/100)</span>
-                    </td>
-                    <td className="muted">{item.timestamp ? new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : (item.time || "Recent")}</td>
-                  </tr>
-                ))}
+                {recentScreenings.map((item) => {
+                  const recId = item.verificationId || item.id;
+                  return (
+                    <tr
+                      key={item.id || item.verificationId}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(`/history?id=${recId}`)}
+                    >
+                      <td className="screening-id">{recId}</td>
+                      <td>
+                        <strong>{item.personName || item.name || "N/A"}</strong>
+                      </td>
+                      <td>{item.documentType || item.document}</td>
+                      <td>
+                        <StatusBadge status={item.recommendation || item.status} />
+                      </td>
+                      <td>
+                        <RiskBadge risk={item.riskLevel || item.risk} />{" "}
+                        <span className="small-score">({item.riskScore ?? 18}/100)</span>
+                      </td>
+                      <td className="muted">
+                        {item.timestamp
+                          ? new Date(item.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                          : (item.time || "Recent")}
+                      </td>
+                      <td>
+                        <button
+                          type="button"
+                          className="text-button flex-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/history?id=${recId}`);
+                          }}
+                          title="View Full Verification Dossier"
+                        >
+                          <Eye size={13} /> View
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -232,7 +258,12 @@ export default function Dashboard() {
 
           <div className="alerts-list">
             {alerts.map((alert) => (
-              <div className="alert-item" key={alert.id}>
+              <div
+                className="alert-item"
+                key={alert.id}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/alerts?id=${alert.id}`)}
+              >
                 <div className={`alert-icon ${(alert.severity || "high").toLowerCase()}`}>
                   <AlertTriangle size={17} />
                 </div>
@@ -248,9 +279,26 @@ export default function Dashboard() {
                   <p>{alert.description}</p>
                   <div className="alert-meta-row">
                     <small>{alert.time || "Just now"}</small>
-                    <Link to="/alerts" className="alert-link-action">
-                      Acknowledge
-                    </Link>
+                    <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                      <button
+                        type="button"
+                        className="text-button"
+                        style={{ fontSize: 11, textDecoration: "underline" }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/alerts?id=${alert.id}`);
+                        }}
+                      >
+                        Inspect Dossier
+                      </button>
+                      <Link
+                        to="/alerts"
+                        className="alert-link-action"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Acknowledge
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>

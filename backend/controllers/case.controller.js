@@ -43,7 +43,29 @@ export const getCaseById = async (req, res, next) => {
     if (!item) {
       return res.status(404).json({ success: false, message: "Case not found" });
     }
-    res.status(200).json({ success: true, data: item });
+
+    // Resolve associated screening and related alerts
+    const associatedScreening = item.verificationId
+      ? db.findById("screenings", item.verificationId)
+      : null;
+
+    const targetCaseId = String(item.id || "").trim().toLowerCase();
+    const targetVerifId = item.verificationId ? String(item.verificationId).trim().toLowerCase() : null;
+
+    const relatedAlerts = db.get("alerts").filter((a) => {
+      const aCaseId = a.caseId ? String(a.caseId).trim().toLowerCase() : null;
+      const aVerifId = a.verificationId ? String(a.verificationId).trim().toLowerCase() : null;
+      return (aCaseId && aCaseId === targetCaseId) || (targetVerifId && aVerifId && aVerifId === targetVerifId);
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        ...item,
+        associatedScreening,
+        relatedAlerts,
+      },
+    });
   } catch (error) {
     next(error);
   }

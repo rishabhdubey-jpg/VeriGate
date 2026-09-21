@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   History as HistoryIcon,
   Search,
@@ -10,6 +11,9 @@ import {
   ShieldCheck,
   AlertTriangle,
   ShieldAlert,
+  FolderOpen,
+  Bell,
+  RefreshCw,
 } from "lucide-react";
 import { api } from "../utils/api";
 
@@ -24,12 +28,15 @@ function StatusBadge({ status }) {
 }
 
 export default function History() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [screenings, setScreenings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [riskFilter, setRiskFilter] = useState("ALL");
   const [docTypeFilter, setDocTypeFilter] = useState("ALL");
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [modalLoading, setModalLoading] = useState(false);
 
   const loadHistory = async () => {
     try {
@@ -51,9 +58,38 @@ export default function History() {
     }
   };
 
+  const openRecordDetails = async (itemOrId) => {
+    const recId = typeof itemOrId === "string" ? itemOrId : (itemOrId?.verificationId || itemOrId?.id);
+    if (!recId) return;
+
+    if (typeof itemOrId === "object" && itemOrId !== null) {
+      setSelectedRecord(itemOrId);
+    }
+    setModalLoading(true);
+
+    try {
+      const res = await api.getScreening(recId);
+      if (res?.data) {
+        setSelectedRecord(res.data);
+      }
+    } catch (err) {
+      console.warn("Could not fetch detailed verification dossier:", err);
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadHistory();
   }, [riskFilter, docTypeFilter]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const targetId = params.get("id") || params.get("verificationId");
+    if (targetId) {
+      openRecordDetails(targetId);
+    }
+  }, [location.search]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -145,34 +181,41 @@ export default function History() {
                 </tr>
               ) : (
                 screenings.map((item) => (
-                  <tr key={item.id}>
+                  <tr
+                    key={item.id || item.verificationId}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => openRecordDetails(item)}
+                  >
                     <td className="screening-id">{item.verificationId || item.id}</td>
                     <td>
-                      <strong>{item.personName}</strong>
+                      <strong>{item.personName || item.fullName || "N/A"}</strong>
                     </td>
                     <td>{item.documentType}</td>
-                    <td>{item.documentNumber}</td>
+                    <td>{item.documentNumber || item.docNum || "N/A"}</td>
                     <td>
                       <RiskBadge risk={item.riskLevel} />{" "}
-                      <span className="small-score">({item.riskScore}/100)</span>
+                      <span className="small-score">({item.riskScore ?? 0}/100)</span>
                     </td>
-                    <td>{item.recommendation}</td>
+                    <td>{item.recommendation || "N/A"}</td>
                     <td>
-                      <StatusBadge status={item.status} />
+                      <StatusBadge status={item.status || "Verified"} />
                     </td>
                     <td className="muted">
-                      {new Date(item.timestamp).toLocaleString([], {
+                      {item.timestamp ? new Date(item.timestamp).toLocaleString([], {
                         month: "short",
                         day: "numeric",
                         hour: "2-digit",
                         minute: "2-digit",
-                      })}
+                      }) : "Recent"}
                     </td>
                     <td>
                       <button
                         type="button"
                         className="text-button flex-btn"
-                        onClick={() => setSelectedRecord(item)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openRecordDetails(item);
+                        }}
                         title="View Full Verification Dossier"
                       >
                         <Eye size={14} /> View
@@ -193,8 +236,11 @@ export default function History() {
             <div className="modal-header">
               <div>
                 <span className="eyebrow">VERIFICATION DOSSIER</span>
-                <h2>{selectedRecord.verificationId}</h2>
-                <p>Subject: {selectedRecord.personName} ({selectedRecord.nationality || "N/A"})</p>
+                <h2>{selectedRecord.verificationId || selectedRecord.id}</h2>
+                <p>
+                  Subject: {selectedRecord.personName || selectedRecord.fullName || "Unextracted Subject"}{" "}
+                  ({selectedRecord.nationality || selectedRecord.ocr?.nationality || "N/A"})
+                </p>
               </div>
               <button className="icon-button" onClick={() => setSelectedRecord(null)}>
                 <X size={18} />
@@ -202,29 +248,99 @@ export default function History() {
             </div>
 
             <div className="modal-body">
+              {modalLoading && (
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 0", color: "#64748b", fontSize: 13 }}>
+                  <RefreshCw size={14} className="spin" /> Loading full dossier details...
+                </div>
+              )}
+
               <div className="case-meta-grid">
                 <div>
                   <span>Document Type:</span>
-                  <strong>{selectedRecord.documentType} ({selectedRecord.documentNumber})</strong>
+                  <strong>{selectedRecord.documentType} ({selectedRecord.documentNumber || selectedRecord.ocr?.documentNumber || "N/A"})</strong>
                 </div>
                 <div>
                   <span>Risk Score:</span>
-                  <strong>{selectedRecord.riskScore}/100 ({selectedRecord.riskLevel})</strong>
+                  <strong>{selectedRecord.riskScore ?? 0}/100 ({selectedRecord.riskLevel || "LOW"})</strong>
                 </div>
                 <div>
                   <span>Decision:</span>
-                  <strong>{selectedRecord.recommendation}</strong>
+                  <strong>{selectedRecord.recommendation || "PROCEED"}</strong>
                 </div>
                 <div>
                   <span>Timestamp:</span>
-                  <strong>{new Date(selectedRecord.timestamp).toLocaleString()}</strong>
+                  <strong>{selectedRecord.timestamp ? new Date(selectedRecord.timestamp).toLocaleString() : "N/A"}</strong>
                 </div>
               </div>
+
+              {/* ASSOCIATED CASES */}
+              {selectedRecord.relatedCases && selectedRecord.relatedCases.length > 0 && (
+                <div className="case-section" style={{ background: "#f8fafc", padding: "12px 14px", borderRadius: 8, border: "1px solid #e2e8f0" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 600, fontSize: 13, color: "#1e293b" }}>
+                      <FolderOpen size={16} style={{ color: "#3b82f6" }} />
+                      <span>Associated Case Files ({selectedRecord.relatedCases.length})</span>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {selectedRecord.relatedCases.map((rc) => (
+                      <div key={rc.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", padding: "8px 10px", borderRadius: 6, border: "1px solid #cbd5e1" }}>
+                        <div>
+                          <strong style={{ fontSize: 13, color: "#0f172a" }}>{rc.id}</strong> — <span style={{ fontSize: 12, color: "#475569" }}>Status: {rc.status}</span>
+                        </div>
+                        <button
+                          type="button"
+                          className="secondary-button"
+                          style={{ padding: "3px 8px", fontSize: 12 }}
+                          onClick={() => {
+                            setSelectedRecord(null);
+                            navigate(`/cases?id=${rc.id}`);
+                          }}
+                        >
+                          Open Case File
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ASSOCIATED ALERTS */}
+              {selectedRecord.relatedAlerts && selectedRecord.relatedAlerts.length > 0 && (
+                <div className="case-section" style={{ background: "#fef2f2", padding: "12px 14px", borderRadius: 8, border: "1px solid #fecaca" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontWeight: 600, fontSize: 13, color: "#991b1b" }}>
+                      <Bell size={16} style={{ color: "#ef4444" }} />
+                      <span>Associated Security Alerts ({selectedRecord.relatedAlerts.length})</span>
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {selectedRecord.relatedAlerts.map((ra) => (
+                      <div key={ra.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", background: "#fff", padding: "8px 10px", borderRadius: 6, border: "1px solid #fca5a5" }}>
+                        <div>
+                          <strong style={{ fontSize: 13, color: "#7f1d1d" }}>{ra.id}</strong> — <span style={{ fontSize: 12, color: "#374151" }}>{ra.title}</span>
+                        </div>
+                        <button
+                          type="button"
+                          className="secondary-button"
+                          style={{ padding: "3px 8px", fontSize: 12 }}
+                          onClick={() => {
+                            setSelectedRecord(null);
+                            navigate(`/alerts?id=${ra.id}`);
+                          }}
+                        >
+                          Open Alert
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="case-section">
                 <h3>Decision Justification</h3>
                 <ul className="modal-reasons-list">
-                  {(selectedRecord.reasons || []).map((r, i) => (
+                  {(selectedRecord.reasons || ["Document processed through screening pipeline."]).map((r, i) => (
                     <li key={i}>{r}</li>
                   ))}
                 </ul>
@@ -235,13 +351,39 @@ export default function History() {
                   <h3>Extracted OCR Fields</h3>
                   <div className="ocr-grid">
                     {Object.entries(selectedRecord.ocr)
-                      .filter(([k]) => !["confidence", "fieldsDetected", "extractionTimeMs", "mrz", "sourceFile"].includes(k))
+                      .filter(([k, v]) => !["confidence", "fieldsDetected", "extractionTimeMs", "mrz", "sourceFile", "ocrStatus"].includes(k) && v !== null && v !== undefined && typeof v !== "object")
                       .map(([k, v]) => (
                         <div className="ocr-field" key={k}>
                           <span>{k.replace(/([A-Z])/g, " $1").trim()}</span>
                           <strong>{String(v)}</strong>
                         </div>
                       ))}
+                  </div>
+                  {selectedRecord.ocr.mrz && (
+                    <div style={{ marginTop: 10, background: "#f1f5f9", padding: "8px 10px", borderRadius: 6, fontFamily: "monospace", fontSize: 11 }}>
+                      <strong>MRZ:</strong>
+                      <pre style={{ margin: "4px 0 0", whiteSpace: "pre-wrap" }}>{selectedRecord.ocr.mrz}</pre>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* CHECKS SUMMARY */}
+              {selectedRecord.checks && selectedRecord.checks.length > 0 && (
+                <div className="case-section">
+                  <h3>Verification Checks</h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 8 }}>
+                    {selectedRecord.checks.map((chk, i) => (
+                      <div key={i} style={{ padding: "8px 10px", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 6 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <strong style={{ fontSize: 12 }}>{chk.title}</strong>
+                          <span style={{ fontSize: 10, padding: "2px 5px", borderRadius: 4, background: chk.status === "pass" ? "#dcfce7" : chk.status === "fail" ? "#fee2e2" : "#fef3c7", color: chk.status === "pass" ? "#15803d" : chk.status === "fail" ? "#b91c1c" : "#b45309" }}>
+                            {chk.score || chk.status}
+                          </span>
+                        </div>
+                        <small style={{ color: "#64748b", display: "block", marginTop: 3 }}>{chk.description}</small>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}

@@ -72,8 +72,17 @@ class DataStore {
   }
 
   findById(collection, id) {
+    if (!id) return null;
     const list = this.get(collection);
-    return list.find((item) => item.id === id || item.verificationId === id);
+    const target = String(id).trim().toLowerCase();
+    return list.find((item) => {
+      if (!item) return false;
+      if (item.id && String(item.id).trim().toLowerCase() === target) return true;
+      if (item.verificationId && String(item.verificationId).trim().toLowerCase() === target) return true;
+      if (item.caseId && String(item.caseId).trim().toLowerCase() === target) return true;
+      if (item.alertId && String(item.alertId).trim().toLowerCase() === target) return true;
+      return false;
+    });
   }
 
   insert(collection, item) {

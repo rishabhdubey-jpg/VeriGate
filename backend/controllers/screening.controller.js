@@ -293,7 +293,27 @@ export const getScreeningById = async (req, res, next) => {
     if (!item) {
       return res.status(404).json({ success: false, message: "Screening record not found" });
     }
-    res.status(200).json({ success: true, data: item });
+
+    // Resolve relationships: attached cases and alerts
+    const targetId = String(item.verificationId || item.id).trim().toLowerCase();
+    const relatedCases = db.get("cases").filter((c) => {
+      const cVerifId = String(c.verificationId || "").trim().toLowerCase();
+      return cVerifId === targetId || String(c.id || "").trim().toLowerCase() === targetId;
+    });
+
+    const relatedAlerts = db.get("alerts").filter((a) => {
+      const aVerifId = String(a.verificationId || "").trim().toLowerCase();
+      return aVerifId === targetId || String(a.id || "").trim().toLowerCase() === targetId;
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        ...item,
+        relatedCases,
+        relatedAlerts,
+      },
+    });
   } catch (error) {
     next(error);
   }
