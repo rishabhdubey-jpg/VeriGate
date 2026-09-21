@@ -1,61 +1,5 @@
 {
-  "watchlist": [
-    {
-      "id": "WL-001",
-      "name": "Tariq Al-Mansoor",
-      "documentNumber": "M90124881",
-      "nationality": "Syrian",
-      "reason": "Suspected Identity Forgery & Transnational Fraud Network",
-      "status": "ACTIVE",
-      "riskLevel": "CRITICAL",
-      "source": "Interpol Red Notice #A-2025-9921",
-      "addedDate": "2025-11-12"
-    },
-    {
-      "id": "WL-002",
-      "name": "Viktor Reznov",
-      "documentNumber": "RU8829104",
-      "nationality": "Russian",
-      "reason": "Reported Stolen Passport & Multiple Alias Travel",
-      "status": "ACTIVE",
-      "riskLevel": "HIGH",
-      "source": "Border Security Intelligence Bulletin",
-      "addedDate": "2026-01-08"
-    },
-    {
-      "id": "WL-003",
-      "name": "Kavita Nair",
-      "documentNumber": "Z44910283",
-      "nationality": "Indian",
-      "reason": "Immigration Visa Fraud & Counterfeit Stamp Carrier",
-      "status": "ACTIVE",
-      "riskLevel": "HIGH",
-      "source": "Consular Alert Advisory",
-      "addedDate": "2026-02-14"
-    },
-    {
-      "id": "WL-004",
-      "name": "Carlos Mendoza",
-      "documentNumber": "P77281900",
-      "nationality": "Colombian",
-      "reason": "Previously Expelled / Overstay Violation",
-      "status": "INACTIVE",
-      "riskLevel": "MEDIUM",
-      "source": "Immigration Control Database",
-      "addedDate": "2024-08-20"
-    },
-    {
-      "id": "WL-005",
-      "name": "Elena Rostova",
-      "documentNumber": "P89123450",
-      "nationality": "Ukrainian",
-      "reason": "Suspicious Document Tampering & Altered Expiry Date",
-      "status": "ACTIVE",
-      "riskLevel": "HIGH",
-      "source": "Airport Security Checkpoint Advisory",
-      "addedDate": "2026-03-01"
-    }
-  ],
+  "watchlist": [],
   "screenings": [
     {
       "id": "VG-2026-36176",
@@ -122023,6 +121967,56 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "AUD-467288",
+      "timestamp": "2026-09-21T05:44:27.288Z",
+      "officer": "Alex Singh",
+      "action": "Watchlist Entry Removed",
+      "entity": "Watchlist",
+      "entityId": "WL-005",
+      "result": "Deleted",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-464537",
+      "timestamp": "2026-09-21T05:44:24.537Z",
+      "officer": "Alex Singh",
+      "action": "Watchlist Entry Removed",
+      "entity": "Watchlist",
+      "entityId": "WL-004",
+      "result": "Deleted",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-463253",
+      "timestamp": "2026-09-21T05:44:23.253Z",
+      "officer": "Alex Singh",
+      "action": "Watchlist Entry Removed",
+      "entity": "Watchlist",
+      "entityId": "WL-003",
+      "result": "Deleted",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-459790",
+      "timestamp": "2026-09-21T05:44:19.790Z",
+      "officer": "Alex Singh",
+      "action": "Watchlist Entry Removed",
+      "entity": "Watchlist",
+      "entityId": "WL-002",
+      "result": "Deleted",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-454953",
+      "timestamp": "2026-09-21T05:44:14.953Z",
+      "officer": "Alex Singh",
+      "action": "Watchlist Entry Removed",
+      "entity": "Watchlist",
+      "entityId": "WL-001",
+      "result": "Deleted",
+      "ipAddress": "127.0.0.1"
+    },
     {
       "id": "AUD-493876",
       "timestamp": "2026-09-18T07:28:13.876Z",
