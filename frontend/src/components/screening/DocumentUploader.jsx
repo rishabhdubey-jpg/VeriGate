@@ -2,34 +2,38 @@ import { useRef, useState } from "react";
 import {
   Upload,
   FileImage,
+  FileText,
   X,
   CheckCircle2,
-  AlertCircle,
 } from "lucide-react";
 
-export default function DocumentUploader({ onFileSelect, label = "Document", acceptText = "JPG, PNG, WEBP · Max 5 MB" }) {
+export default function DocumentUploader({ onFileSelect }) {
   const inputRef = useRef(null);
   const [file, setFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-
-  const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
 
   const handleFile = (selectedFile) => {
-    setErrorMsg("");
     if (!selectedFile) return;
 
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "application/pdf",
+    ];
+
     if (!allowedTypes.includes(selectedFile.type)) {
-      setErrorMsg("Please upload a JPG, PNG, or WEBP image file (PDFs are not accepted).");
+      alert("Please upload a JPG, PNG, WEBP or PDF document.");
       return;
     }
 
-    if (selectedFile.size > 5 * 1024 * 1024) {
-      setErrorMsg("File size exceeds 5 MB limit.");
+    if (selectedFile.size > 10 * 1024 * 1024) {
+      alert("File size must be less than 10 MB.");
       return;
     }
 
     setFile(selectedFile);
+
     if (onFileSelect) {
       onFileSelect(selectedFile);
     }
@@ -42,16 +46,19 @@ export default function DocumentUploader({ onFileSelect, label = "Document", acc
   const handleDrop = (event) => {
     event.preventDefault();
     setDragActive(false);
+
     handleFile(event.dataTransfer.files?.[0]);
   };
 
   const removeFile = (event) => {
     event.stopPropagation();
+
     setFile(null);
-    setErrorMsg("");
+
     if (onFileSelect) {
       onFileSelect(null);
     }
+
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -59,12 +66,14 @@ export default function DocumentUploader({ onFileSelect, label = "Document", acc
 
   return (
     <div className="screening-upload-section">
-      {errorMsg && (
-        <div className="upload-error-banner">
-          <AlertCircle size={16} />
-          <span>{errorMsg}</span>
+      <div className="screening-section-header">
+        <div>
+          <h2>Document Upload</h2>
+          <p>
+            Upload an identity or travel document for automated screening.
+          </p>
         </div>
-      )}
+      </div>
 
       {!file ? (
         <div
@@ -80,42 +89,53 @@ export default function DocumentUploader({ onFileSelect, label = "Document", acc
           <input
             ref={inputRef}
             type="file"
-            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+            accept=".jpg,.jpeg,.png,.webp,.pdf"
             onChange={handleInputChange}
             hidden
           />
 
           <div className="upload-icon">
-            <Upload size={24} />
+            <Upload size={25} />
           </div>
 
-          <h3>Upload {label}</h3>
+          <h3>Upload document</h3>
+
           <p>
-            Drag and drop image here, or <span>browse files</span>
+            Drag and drop your document here, or{" "}
+            <span>browse files</span>
           </p>
-          <small>{acceptText}</small>
+
+          <small>
+            Supported formats: JPG, PNG, WEBP, PDF · Maximum 10 MB
+          </small>
         </div>
       ) : (
         <div className="selected-file">
           <div className="selected-file-icon">
-            <FileImage size={24} />
+            {file.type === "application/pdf" ? (
+              <FileText size={23} />
+            ) : (
+              <FileImage size={23} />
+            )}
           </div>
 
           <div className="selected-file-info">
             <strong>{file.name}</strong>
-            <span>{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            <span>
+              {(file.size / 1024 / 1024).toFixed(2)} MB
+            </span>
           </div>
 
           <div className="file-ready">
             <CheckCircle2 size={16} />
-            Ready for Analysis
+            Ready
           </div>
 
           <button
             type="button"
             className="remove-file"
             onClick={removeFile}
-            title="Remove file"
+            title="Remove document"
           >
             <X size={17} />
           </button>
